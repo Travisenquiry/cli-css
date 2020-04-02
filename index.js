@@ -1,10 +1,5 @@
-function componentToHex(c) {
-  var hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
-}
-
 function rgbToHex(r, g, b) {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
 
@@ -17,4 +12,8 @@ function hexToRgb(hex) {
     return r + "," + g + "," + b;
 }
 
-console.log("rgb( "+ hexToRgb(process.argv[3]) + " )"); // "51";
+if(process.argv[2] === "hex"){
+  console.log("rgb( "+ hexToRgb(process.argv[3]) + " )"); // "51";
+}else if(process.argv[2] === "rgb"){
+  console.log(rgbToHex(parseInt(process.argv[3]), parseInt(process.argv[4]), parseInt(process.argv[5])));
+}
